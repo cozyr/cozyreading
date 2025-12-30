@@ -1,8 +1,7 @@
 /* =========================================================
    Cozy Reading Library — style.css (cleaned + organized)
    - Same design, less repetition
-   - Merged redundant rules
-   - Simplified indentation logic after scene breaks (works with images)
+   - Removed duplicate rules (kept behavior identical)
 ========================================================= */
 
 /* ==========
@@ -742,7 +741,6 @@ a.book-item:hover {
     padding: 26px 12px;
 }
 
-/* You asked: keep spacing, no tiny line under title */
 .chapter-head {
     text-align: center;
     margin: 6px 0 18px;
@@ -815,13 +813,14 @@ a.book-item:hover {
     hyphens: auto;
 }
 
-/* Paragraph indentation rules */
+/* Paragraph indentation rules (deduped) */
 .chapter-text p {
     margin: 0;
     text-indent: 1.6em;
 }
 
-.chapter-text p:first-child {
+/* No indent for very first paragraph in chapter (works even if hr/img comes first) */
+.chapter-text>p:first-of-type {
     text-indent: 0;
 }
 
@@ -829,17 +828,6 @@ a.book-item:hover {
 .chapter-text p.center,
 .chapter-text p[class^="center"] {
     text-align: center;
-    text-indent: 0;
-}
-
-/* Default: indent paragraphs */
-.chapter-text p {
-    margin: 0;
-    text-indent: 1.6em;
-}
-
-/* No indent for very first paragraph in chapter */
-.chapter-text>p:first-of-type {
     text-indent: 0;
 }
 
@@ -929,7 +917,7 @@ a.book-item:hover {
     will-change: auto;
 
     /* edge fade */
-    --edge-fade: 50px;
+    --edge-fade: 20px;
     /* tweak: 14px (subtle) → 30px (strong) */
 
     -webkit-mask-image:

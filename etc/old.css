@@ -1,9 +1,8 @@
 /* =========================================================
    Cozy Reading Library — style.css (cleaned + organized)
    - Same design, less repetition
-   - Removed duplicates (ex: repeated .book-summary mobile hide)
-   - Merged repeated blocks (ex: page-book title styles)
-   - Removed unused @keyframes drift (not referenced)
+   - Merged redundant rules
+   - Simplified indentation logic after scene breaks (works with images)
 ========================================================= */
 
 /* ==========
@@ -22,7 +21,6 @@
 
     --radius: 16px;
     --radius2: 22px;
-
     --shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
 
     --container: 1100px;
@@ -31,10 +29,11 @@
     --waves-h: 140px;
     /* matches .ocean-waves height */
 
-    /* Font stacks (so you don’t repeat them everywhere) */
-    --font-ui: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+    --font-ui: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans",
+        "Helvetica Neue", sans-serif;
     --font-serif: Georgia, "Times New Roman", Times, serif;
-    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+        "Courier New", monospace;
 }
 
 /* ==========
@@ -93,8 +92,6 @@ body {
 html {
     overflow-x: clip;
 }
-
-/* avoid ghost scroll */
 
 body {
     margin: 0;
@@ -448,6 +445,12 @@ img {
     width: 100%;
 }
 
+/* Book page: reduce extra space before footer/to-top */
+.page.page-book {
+    padding-bottom: 40px;
+    /* try 24px–60px */
+}
+
 .page-home {
     display: grid;
     place-items: center;
@@ -484,11 +487,9 @@ body.is-home .page {
 .site-footer {
     position: relative;
     z-index: 1;
-
     max-width: var(--container);
     margin: 0 auto;
     padding: 14px 16px calc(var(--waves-h) + 20px);
-
     color: rgba(233, 242, 255, 0.62);
     font-size: 12px;
     line-height: 1.6;
@@ -615,7 +616,7 @@ a.book-item:hover {
 
 /* Reader/book page title ONLY (gold foil + one-line) */
 .page-book .page-header h1 {
-    margin: 10px 0 10px;
+    margin: 10px 0;
     font-weight: 750;
     line-height: 1.05;
 
@@ -634,7 +635,6 @@ a.book-item:hover {
     overflow: hidden;
     text-overflow: clip;
 
-    /* keeps your “auto shrink but still big” behavior */
     font-size: clamp(34px, 9vw, 92px);
     letter-spacing: 0.015em;
 }
@@ -642,7 +642,6 @@ a.book-item:hover {
 .page-book .chapter-strip {
     position: static;
     margin: 14px auto 18px;
-
     width: 100%;
     max-width: var(--book-content-width);
 
@@ -701,7 +700,6 @@ a.book-item:hover {
 
     display: inline-grid;
     place-items: center;
-
     min-width: 36px;
     height: 34px;
     padding: 0 10px;
@@ -729,31 +727,26 @@ a.book-item:hover {
 .page-book .reader {
     width: 100%;
     max-width: var(--book-content-width);
-
     margin: 0 auto;
+
     border-radius: var(--radius2);
-    border: 1px solid var(--line);
+    border: 1px solid rgba(233, 242, 255, 0.14);
+    background: rgba(7, 20, 36, 0.58);
+    backdrop-filter: blur(14px);
+
     box-shadow: var(--shadow);
     padding: 22px;
-
-    background: rgba(7, 20, 36, 0.58);
-    /* slightly stronger */
-    border-color: rgba(233, 242, 255, 0.14);
-    /* a touch clearer */
-    backdrop-filter: blur(14px);
-    /* extra glass */
 }
 
 .chapter {
     padding: 26px 12px;
 }
 
+/* You asked: keep spacing, no tiny line under title */
 .chapter-head {
     text-align: center;
-    margin: 6px 0 14px;
-    position: relative;
+    margin: 6px 0 18px;
     padding-bottom: 10px;
-    margin-bottom: 18px;
 }
 
 .chapter-num {
@@ -770,9 +763,8 @@ a.book-item:hover {
     border-radius: 999px;
     border: 1px solid rgba(30, 227, 207, 0.20);
     background: radial-gradient(circle at 30% 30%, rgba(30, 227, 207, 0.10), transparent 65%);
-
-    /* base ring + pulsing glow (same vibe as scene break / images) */
     box-shadow: 0 0 0 8px rgba(30, 227, 207, 0.05);
+
     animation: chapterNumGlow 2.6s ease-in-out infinite;
     will-change: box-shadow, border-color, transform, filter;
 }
@@ -814,10 +806,7 @@ a.book-item:hover {
 
 .chapter-text {
     max-width: 68ch;
-    /* ideal reading width */
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 22px;
+    margin: 22px auto 0;
     font-family: var(--font-serif);
     font-size: 21px;
     line-height: 2.0;
@@ -826,6 +815,7 @@ a.book-item:hover {
     hyphens: auto;
 }
 
+/* Paragraph indentation rules */
 .chapter-text p {
     margin: 0;
     text-indent: 1.6em;
@@ -835,29 +825,39 @@ a.book-item:hover {
     text-indent: 0;
 }
 
+/* Centered lines */
 .chapter-text p.center,
 .chapter-text p[class^="center"] {
     text-align: center;
     text-indent: 0;
 }
 
-.chapter-text hr.scene-break+p {
+/* Default: indent paragraphs */
+.chapter-text p {
+    margin: 0;
+    text-indent: 1.6em;
+}
+
+/* No indent for very first paragraph in chapter */
+.chapter-text>p:first-of-type {
     text-indent: 0;
 }
 
-.chapter-text hr.scene-break~p:first-of-type {
+/* No indent for the first paragraph AFTER each scene break,
+   even if there are images (or other non-<p> elements) in between */
+.chapter-text hr.scene-break+p,
+.chapter-text hr.scene-break+img+p,
+.chapter-text hr.scene-break+img+img+p,
+.chapter-text hr.scene-break+img+img+img+p {
     text-indent: 0;
 }
 
+/* Keep bigcap from forcing different font */
 .chapter-text .bigcap {
     font: inherit;
     font-weight: inherit;
     line-height: inherit;
     color: inherit;
-}
-
-.chapter-text .scene-img {
-    text-indent: 0;
 }
 
 .the-end-wrap {
@@ -910,7 +910,7 @@ a.book-item:hover {
     }
 }
 
-/* Scene images */
+/* Scene images — no glow/filters; soft edge fade (square) */
 .scene-img {
     display: block;
     width: min(520px, 92%);
@@ -918,44 +918,49 @@ a.book-item:hover {
     object-fit: cover;
     margin: 22px auto;
 
+    /* keep your rounded corners */
     border-radius: var(--radius2);
-    border: 1px solid rgba(233, 242, 255, 0.14);
 
-    box-shadow:
-        0 18px 50px rgba(0, 0, 0, 0.55),
-        0 0 0 6px rgba(30, 227, 207, 0.05);
+    /* remove old effects */
+    border: 0;
+    box-shadow: none;
+    animation: none;
+    filter: none;
+    will-change: auto;
 
-    animation: sceneImgGlow 2.6s ease-in-out infinite;
-    will-change: box-shadow, border-color, transform, filter;
+    /* edge fade */
+    --edge-fade: 50px;
+    /* tweak: 14px (subtle) → 30px (strong) */
 
-    /* lower vibrancy */
-    filter: saturate(0.95) contrast(0.98) brightness(0.96);
-}
+    -webkit-mask-image:
+        linear-gradient(to right,
+            transparent 0,
+            #000 var(--edge-fade),
+            #000 calc(100% - var(--edge-fade)),
+            transparent 100%),
+        linear-gradient(to bottom,
+            transparent 0,
+            #000 var(--edge-fade),
+            #000 calc(100% - var(--edge-fade)),
+            transparent 100%);
+    -webkit-mask-composite: source-in;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
 
-@keyframes sceneImgGlow {
-
-    0%,
-    100% {
-        border-color: rgba(233, 242, 255, 0.12);
-        filter: saturate(0.95) blur(0px);
-        box-shadow:
-            0 18px 50px rgba(0, 0, 0, 0.55),
-            0 0 0 6px rgba(30, 227, 207, 0.04),
-            0 0 0 rgba(30, 227, 207, 0),
-            0 0 0 rgba(42, 167, 255, 0);
-        transform: translateY(0);
-    }
-
-    50% {
-        border-color: rgba(30, 227, 207, 0.34);
-        filter: saturate(0.95) blur(0.15px);
-        box-shadow:
-            0 20px 60px rgba(0, 0, 0, 0.60),
-            0 0 0 7px rgba(30, 227, 207, 0.08),
-            0 0 18px rgba(30, 227, 207, 0.22),
-            0 0 34px rgba(42, 167, 255, 0.14);
-        transform: translateY(-2px);
-    }
+    mask-image:
+        linear-gradient(to right,
+            transparent 0,
+            #000 var(--edge-fade),
+            #000 calc(100% - var(--edge-fade)),
+            transparent 100%),
+        linear-gradient(to bottom,
+            transparent 0,
+            #000 var(--edge-fade),
+            #000 calc(100% - var(--edge-fade)),
+            transparent 100%);
+    mask-composite: intersect;
+    mask-repeat: no-repeat;
+    mask-size: 100% 100%;
 }
 
 /* Blockquote + underline */
@@ -1061,7 +1066,6 @@ a.book-item:hover {
     position: fixed;
     left: 0;
     bottom: 0;
-
     width: 100%;
     height: 140px;
     opacity: 0.9;
@@ -1180,7 +1184,6 @@ a.book-item:hover {
 .to-top {
     display: grid;
     place-items: center;
-
     width: 40px;
     height: 40px;
     aspect-ratio: 1 / 1;
@@ -1235,6 +1238,8 @@ a.book-item:hover {
 }
 
 @media (max-width: 720px) {
+
+    /* nav dropdown */
     .nav-toggle {
         display: inline-flex;
         align-items: center;
@@ -1281,11 +1286,29 @@ a.book-item:hover {
         display: inline-flex;
     }
 
+    /* reading size */
     .chapter-text {
         font-size: 18px;
         line-height: 1.7;
     }
 
+    .page.page-book {
+        padding-bottom: 24px;
+    }
+
+    /* calm animations slightly */
+    .scene-break,
+    .chapter-num {
+        animation-duration: 3.2s;
+    }
+
+    /* chapter chips slightly bigger taps */
+    .chapter-chip {
+        height: 38px;
+        min-width: 40px;
+    }
+
+    /* book grid */
     .book-list {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 12px;
@@ -1321,7 +1344,6 @@ a.book-item:hover {
         line-height: 1.25;
     }
 
-    /* hide heavy text on mobile */
     .book-summary {
         display: none;
     }
@@ -1333,15 +1355,10 @@ a.book-item:hover {
         text-align: center;
     }
 
-    /* meta pill on mobile */
     .book-meta {
         display: inline-block;
         margin: 10px auto 0;
         box-shadow: 0 0 0 6px rgba(30, 227, 207, 0.05);
-    }
-
-    .page-library .book-meta {
-        margin-top: 10px;
     }
 
     .book-item--disabled {
@@ -1399,22 +1416,5 @@ a.book-item:hover {
 
     .title-logo--float {
         animation: none;
-    }
-}
-
-@media (max-width: 720px) {
-
-    .scene-img,
-    .scene-break,
-    .chapter-num {
-        animation-duration: 3.2s;
-        /* slower = calmer */
-    }
-}
-
-@media (max-width: 720px) {
-    .chapter-chip {
-        height: 38px;
-        min-width: 40px;
     }
 }
