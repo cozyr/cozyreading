@@ -195,18 +195,15 @@
 ========================= */
 (() => {
   function getSiteBaseHref() {
-    // Find the script tag that loaded this file, and use it to build an absolute base URL.
     const scripts = Array.from(document.scripts || []);
-    const main = scripts.find((s) => s.src && s.src.endsWith("/js/main.js")) ||
+    const main =
+      scripts.find((s) => s.src && s.src.endsWith("/js/main.js")) ||
       scripts.find((s) => s.src && s.src.endsWith("js/main.js"));
 
     if (main && main.src) {
-      // main.src -> https://domain.com/<base>/js/main.js
-      // ../ -> https://domain.com/<base>/
       return new URL("../", new URL(main.src)).href;
     }
 
-    // Fallback (should rarely be needed)
     return new URL("./", window.location.href).href;
   }
 
@@ -226,7 +223,6 @@
 
       mount.innerHTML = html;
 
-      // update year (supports both data-year and id="year")
       mount.querySelectorAll("[data-year]").forEach((el) => {
         el.textContent = String(new Date().getFullYear());
       });
@@ -298,8 +294,7 @@
     const hint = document.getElementById("chapter-hint");
     if (!mount || !reader || !hint) return;
 
-    // ✅ Optional but nice: make the aria-label match the book number automatically
-    const bookNum = page.dataset.bookReader; // "2", "3", etc.
+    const bookNum = page.dataset.bookReader;
     if (bookNum) reader.setAttribute("aria-label", `Book ${bookNum} reader`);
 
     const topNav = page.querySelector('[data-chapters="top"]');
@@ -310,8 +305,7 @@
       templates.set(String(tpl.dataset.chapter), tpl);
     });
 
-    const getAllChips = () =>
-      Array.from(page.querySelectorAll(".chapter-chip[data-chapter]"));
+    const getAllChips = () => Array.from(page.querySelectorAll(".chapter-chip[data-chapter]"));
 
     const getLastChapterNumber = () => {
       const nums = getAllChips()
@@ -322,15 +316,13 @@
     };
 
     function upsertTheEnd(ch) {
-      // remove any old "The End"
       mount.querySelectorAll(".the-end-wrap").forEach((el) => el.remove());
 
       const last = getLastChapterNumber();
       if (!last || Number(ch) !== Number(last)) return;
 
       const chapterEl =
-        mount.querySelector(`[data-chapter="${String(ch)}"]`) ||
-        mount.querySelector(`#ch-${String(ch)}`);
+        mount.querySelector(`[data-chapter="${String(ch)}"]`) || mount.querySelector(`#ch-${String(ch)}`);
 
       const target = chapterEl?.querySelector(".chapter-text") || mount;
 
@@ -371,16 +363,16 @@
       section.dataset.chapter = String(ch);
 
       section.innerHTML = `
-      <header class="chapter-head">
-        <div class="chapter-num">${ch}</div>
-        <h2 class="chapter-title">Chapter ${ch}</h2>
-      </header>
-      <div class="chapter-text">
-        <hr class="scene-break" />
-        <p><em>This chapter hasn’t been added yet.</em></p>
-        <hr class="scene-break" />
-      </div>
-    `;
+        <header class="chapter-head">
+          <div class="chapter-num">${ch}</div>
+          <h2 class="chapter-title">Chapter ${ch}</h2>
+        </header>
+        <div class="chapter-text">
+          <hr class="scene-break" />
+          <p><em>This chapter hasn’t been added yet.</em></p>
+          <hr class="scene-break" />
+        </div>
+      `;
       return section;
     }
 
@@ -404,7 +396,6 @@
       smoothTop();
     }
 
-    // Make the book title behave like “close chapter”
     const titleLink = page.querySelector(".book-header a");
     if (titleLink) {
       titleLink.href = window.location.pathname + window.location.search;
@@ -448,9 +439,10 @@
   }
 
   /* =========================
-     RANDOMIZE SERIES BOOK COVERS
-     - looks for: img[data-cover-dir][data-cover-count]
-     - picks 1..count and sets src to: <dir>/<n>.<ext>
+     RANDOMIZE SERIES BOOK COVERS (NO FLASH)
+     - HTML uses a tiny transparent data URI (no external load)
+     - JS picks the random cover FIRST and sets src ONCE
+     - Image stays invisible until the real cover finishes loading
   ========================= */
   function initRandomBookCovers() {
     const imgs = document.querySelectorAll("img[data-cover-dir][data-cover-count]");
@@ -461,17 +453,48 @@
       const count = Number(img.dataset.coverCount || "0");
       const ext = String(img.dataset.coverExt || "png").trim();
 
-      if (!dir || !Number.isFinite(count) || count < 2) return;
+      if (!dir || !Number.isFinite(count) || count < 1) return;
 
+      // Pick random 1..count
       const n = 1 + Math.floor(Math.random() * count);
-      const src = new URL(`${dir}${n}.${ext}`, SITE_BASE).href;
-      img.src = src;
+
+      const chosen = new URL(`${dir}${n}.${ext}`, SITE_BASE).href;
+      const fallback = new URL(`${dir}1.${ext}`, SITE_BASE).href;
+
+      // Hide until the chosen image loads (prevents “swap flash”)
+      img.style.opacity = "0";
+
+      const reveal = () => {
+        img.style.opacity = "1";
+      };
+
+      img.addEventListener("load", reveal, { once: true });
+
+      img.addEventListener(
+        "error",
+        () => {
+          // If the random one fails, try the first cover.
+          if (img.src !== fallback) {
+            img.addEventListener("load", reveal, { once: true });
+            img.src = fallback;
+          } else {
+            // If fallback also fails, at least show the element.
+            reveal();
+          }
+        },
+        { once: true }
+      );
+
+      // Set the real source ONLY ONCE (this is what removes the flicker)
+      img.src = chosen;
     });
   }
 
   document.addEventListener("DOMContentLoaded", async () => {
+    // ✅ run this BEFORE waiting for partial fetches (faster cover load)
+    initRandomBookCovers();
+
     await loadPartial("site-header", "partials/header.html", {
-      // Replace __ROOT__ with an absolute base URL (works on GitHub Pages subpaths too)
       transform: (html) => html.replaceAll("__ROOT__", SITE_BASE),
     });
 
@@ -482,7 +505,6 @@
     initNavToggle();
     initToTopButton();
     initBookReader();
-    initRandomBookCovers();
 
     document.documentElement.classList.remove("is-loading");
     document.documentElement.classList.add("is-ready");
