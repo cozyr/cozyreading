@@ -355,7 +355,6 @@
       btn.hidden = !visible;
     }
 
-    // ✅ Clean version (no dead code)
     function clearChapter() {
       mount.innerHTML = "";
       setActive(null);
@@ -448,6 +447,28 @@
     else renderChapter(initial);
   }
 
+  /* =========================
+     RANDOMIZE SERIES BOOK COVERS
+     - looks for: img[data-cover-dir][data-cover-count]
+     - picks 1..count and sets src to: <dir>/<n>.<ext>
+  ========================= */
+  function initRandomBookCovers() {
+    const imgs = document.querySelectorAll("img[data-cover-dir][data-cover-count]");
+    if (!imgs.length) return;
+
+    imgs.forEach((img) => {
+      const dir = String(img.dataset.coverDir || "").trim();
+      const count = Number(img.dataset.coverCount || "0");
+      const ext = String(img.dataset.coverExt || "png").trim();
+
+      if (!dir || !Number.isFinite(count) || count < 2) return;
+
+      const n = 1 + Math.floor(Math.random() * count);
+      const src = new URL(`${dir}${n}.${ext}`, SITE_BASE).href;
+      img.src = src;
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", async () => {
     await loadPartial("site-header", "partials/header.html", {
       // Replace __ROOT__ with an absolute base URL (works on GitHub Pages subpaths too)
@@ -461,6 +482,7 @@
     initNavToggle();
     initToTopButton();
     initBookReader();
+    initRandomBookCovers();
 
     document.documentElement.classList.remove("is-loading");
     document.documentElement.classList.add("is-ready");
