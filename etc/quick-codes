@@ -1,13 +1,17 @@
 Link to site:
 https://cozyr.github.io/cozyreading/
 
-===
+=== Text Styling
 
 Line Break:
 <hr class="scene-break" />
+<p class="center">* * *</p>
 
 Line Break (for centered texts/articles):
 <br class="calibre1" />
+
+Small Text:
+<small></small>
 
 Scene Image:
 <img class="scene-img" src="../../../assets/images/series/percy-jackson-and-the-olympians/book-4-scenes/4-1.png"
