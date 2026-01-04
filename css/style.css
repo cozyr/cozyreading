@@ -821,6 +821,7 @@ a.book-item:hover {
     font-size: clamp(28px, 4.2vw, 44px);
     letter-spacing: 0.02em;
     color: rgba(79, 159, 179, 0.92);
+    text-transform: uppercase;
 }
 
 .chapter-text {
