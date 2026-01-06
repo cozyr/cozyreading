@@ -30,7 +30,10 @@
 
     --font-ui: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans",
         "Helvetica Neue", sans-serif;
-    --font-serif: Georgia, "Times New Roman", Times, serif;
+
+    /* UPDATED: EB Garamond first, Georgia fallback */
+    --font-serif: "EBGaramondLocal", Georgia, "Times New Roman", Times, serif;
+
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
         "Courier New", monospace;
 }
@@ -71,6 +74,24 @@ html.is-loading #site-waves {
     src: url("../assets/fonts/CormorantUnicase-Bold.ttf") format("truetype");
     font-weight: 700;
     font-style: normal;
+    font-display: swap;
+}
+
+/* NEW: EB Garamond (variable) */
+@font-face {
+    font-family: "EBGaramondLocal";
+    src: url("../assets/fonts/EBGaramond-VariableFont_wght.ttf") format("truetype");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* NEW: EB Garamond Italic (variable) */
+@font-face {
+    font-family: "EBGaramondLocal";
+    src: url("../assets/fonts/EBGaramond-Italic-VariableFont_wght.ttf") format("truetype");
+    font-weight: 100 900;
+    font-style: italic;
     font-display: swap;
 }
 
@@ -800,13 +821,14 @@ a.book-item:hover {
     font-size: clamp(28px, 4.2vw, 44px);
     letter-spacing: 0.02em;
     color: rgba(79, 159, 179, 0.92);
+    text-transform: uppercase;
 }
 
 .chapter-text {
-    max-width: 68ch;
+    max-width: clamp(68ch, 82vw, 90%);
     margin: 22px auto 0;
     font-family: var(--font-serif);
-    font-size: 21px;
+    font-size: 25px;
     line-height: 2.0;
     color: rgba(188, 174, 128, 0.92);
     text-align: justify;
@@ -906,19 +928,15 @@ a.book-item:hover {
     object-fit: cover;
     margin: 22px auto;
 
-    /* keep your rounded corners */
     border-radius: var(--radius2);
 
-    /* remove old effects */
     border: 0;
     box-shadow: none;
     animation: none;
     filter: none;
     will-change: auto;
 
-    /* edge fade */
     --edge-fade: 20px;
-    /* tweak: 14px (subtle) → 30px (strong) */
 
     -webkit-mask-image:
         linear-gradient(to right,
@@ -951,6 +969,47 @@ a.book-item:hover {
     mask-size: 100% 100%;
 }
 
+/* =========================
+   Scene images: scroll reveal (book pages only)
+   - Collapsed by default ONLY when JS enables it
+   - Expands when .is-revealed is added
+========================= */
+html.js-scene-reveal .page-book .scene-img {
+    /* collapsed = takes up no vertical space */
+    max-height: 0;
+    margin: 0 auto;
+    opacity: 0;
+    transform: scale(0.98);
+
+    /* prevents any visual spill during the transition */
+    overflow: hidden;
+
+    /* smooth expand/collapse */
+    transition:
+        max-height 5000ms ease,
+        margin 1000ms ease,
+        opacity 5000ms ease,
+        transform 5000ms ease;
+    will-change: max-height, margin, opacity, transform;
+}
+
+/* Expanded/open state */
+html.js-scene-reveal .page-book .scene-img.is-revealed {
+    /* Must be larger than the biggest possible rendered height */
+    max-height: 900px;
+
+    /* restore your usual spacing */
+    margin: 22px auto;
+
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* When collapsing offscreen, disable transitions so scroll compensation is exact */
+html.js-scene-reveal .page-book .scene-img.no-anim {
+    transition: none !important;
+}
+
 /* Blockquote + underline */
 .chapter-text blockquote {
     margin: 18px auto;
@@ -960,11 +1019,12 @@ a.book-item:hover {
     border: 1px solid rgba(233, 242, 255, 0.14);
     background: rgba(255, 255, 255, 0.06);
 
+    /* stays mono; EB Garamond will NOT apply here */
     font-family: var(--font-mono);
-    font-size: 0.88em;
-    line-height: 1.65;
+    font-size: 0.78em;
+    line-height: 1.50;
     color: rgba(143, 169, 205, 0.92);
-    text-align: justify;
+    text-align: left;
     hyphens: none;
 }
 
@@ -1226,8 +1286,6 @@ a.book-item:hover {
 }
 
 @media (max-width: 720px) {
-
-    /* nav dropdown */
     .nav-toggle {
         display: inline-flex;
         align-items: center;
@@ -1274,9 +1332,8 @@ a.book-item:hover {
         display: inline-flex;
     }
 
-    /* reading size */
     .chapter-text {
-        font-size: 18px;
+        font-size: 20px;
         line-height: 1.7;
     }
 
@@ -1284,19 +1341,16 @@ a.book-item:hover {
         padding-bottom: 24px;
     }
 
-    /* calm animations slightly */
     .scene-break,
     .chapter-num {
         animation-duration: 3.2s;
     }
 
-    /* chapter chips slightly bigger taps */
     .chapter-chip {
         height: 38px;
         min-width: 40px;
     }
 
-    /* book grid */
     .book-list {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 12px;
@@ -1353,7 +1407,6 @@ a.book-item:hover {
         opacity: 0.55;
     }
 
-    /* library floating titles (mobile) */
     .library-group {
         padding-top: 28px;
         margin-top: 12px;

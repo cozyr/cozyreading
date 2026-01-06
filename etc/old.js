@@ -1,7 +1,3 @@
-/* =========================================================
-   main.js — cleaned + organized (no functionality changes)
-========================================================= */
-
 /* =========================
    PASSKEY GATE
 ========================= */
@@ -9,15 +5,13 @@
   const EXPECTED_SHA256_HEX =
     "f909c3dac1a16a3b51e445cb0510984ce400c59d8294bc43b395b9eadebb1013";
   const STORAGE_KEY = "pj_passkey_ok_v1";
-  const STYLE_ID = "passkey-gate-styles";
 
   const isUnlocked = () => sessionStorage.getItem(STORAGE_KEY) === "1";
   const setUnlocked = () => sessionStorage.setItem(STORAGE_KEY, "1");
 
   const lockScroll = (locked) => {
-    const val = locked ? "hidden" : "";
-    document.documentElement.style.overflow = val;
-    document.body.style.overflow = val;
+    document.documentElement.style.overflow = locked ? "hidden" : "";
+    document.body.style.overflow = locked ? "hidden" : "";
   };
 
   const toHex = (buf) => {
@@ -29,16 +23,17 @@
 
   const sha256Hex = async (text) => {
     if (!window.crypto?.subtle) throw new Error("Crypto API unavailable");
-    const data = new TextEncoder().encode(text);
+    const enc = new TextEncoder();
+    const data = enc.encode(text);
     const digest = await crypto.subtle.digest("SHA-256", data);
     return toHex(digest);
   };
 
   const injectGateStyles = () => {
-    if (document.getElementById(STYLE_ID)) return;
+    if (document.getElementById("passkey-gate-styles")) return;
 
     const style = document.createElement("style");
-    style.id = STYLE_ID;
+    style.id = "passkey-gate-styles";
     style.textContent = `
       .passkey-gate{
         position: fixed; inset: 0; z-index: 999999;
@@ -135,13 +130,12 @@
 
     document.body.appendChild(gate);
 
-    const $ = (sel) => gate.querySelector(sel);
-    const input = $("#passkey-input");
-    const error = $("#passkey-error");
-    const card = $("#passkey-card");
-    const form = $("#passkey-form");
-    const clearBtn = $("#passkey-clear");
-    const enterBtn = $("#passkey-enter");
+    const input = gate.querySelector("#passkey-input");
+    const error = gate.querySelector("#passkey-error");
+    const card = gate.querySelector("#passkey-card");
+    const form = gate.querySelector("#passkey-form");
+    const clearBtn = gate.querySelector("#passkey-clear");
+    const enterBtn = gate.querySelector("#passkey-enter");
 
     const unlock = () => {
       gate.remove();
@@ -151,7 +145,7 @@
     const fail = (msg) => {
       error.textContent = msg;
       card.classList.remove("passkey-shake");
-      void card.offsetWidth; // restart animation
+      void card.offsetWidth;
       card.classList.add("passkey-shake");
       input.select();
     };
@@ -197,35 +191,23 @@
 })();
 
 /* =========================
-   APP: PARTIAL LOADER + INITS
+   PARTIAL LOADER + INITS
 ========================= */
 (() => {
-  /* ---------- Utilities ---------- */
-  const getSiteBaseHref = () => {
+  function getSiteBaseHref() {
     const scripts = Array.from(document.scripts || []);
     const main =
       scripts.find((s) => s.src && s.src.endsWith("/js/main.js")) ||
       scripts.find((s) => s.src && s.src.endsWith("js/main.js"));
 
-    if (main?.src) return new URL("../", new URL(main.src)).href;
+    if (main && main.src) {
+      return new URL("../", new URL(main.src)).href;
+    }
+
     return new URL("./", window.location.href).href;
-  };
+  }
 
   const SITE_BASE = getSiteBaseHref(); // ends with "/"
-
-  const prefersReducedMotion = () =>
-    window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  const smoothTop = () => {
-    window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? "auto" : "smooth" });
-  };
-
-  const setCurrentYear = (root) => {
-    const year = String(new Date().getFullYear());
-    root.querySelectorAll("[data-year]").forEach((el) => (el.textContent = year));
-    const y = root.querySelector("#year");
-    if (y) y.textContent = year;
-  };
 
   async function loadPartial(mountId, relativeToBase, { transform } = {}) {
     const mount = document.getElementById(mountId);
@@ -240,7 +222,13 @@
       if (typeof transform === "function") html = transform(html);
 
       mount.innerHTML = html;
-      setCurrentYear(mount);
+
+      mount.querySelectorAll("[data-year]").forEach((el) => {
+        el.textContent = String(new Date().getFullYear());
+      });
+      const y = mount.querySelector("#year");
+      if (y) y.textContent = String(new Date().getFullYear());
+
       return true;
     } catch (err) {
       console.warn(`Could not load partial for #${mountId}:`, err);
@@ -248,7 +236,13 @@
     }
   }
 
-  /* ---------- Nav Toggle ---------- */
+  const prefersReducedMotion = () =>
+    window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const smoothTop = () => {
+    window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? "auto" : "smooth" });
+  };
+
   function initNavToggle() {
     const toggle = document.querySelector(".nav-toggle");
     const links = document.getElementById("nav-links");
@@ -256,11 +250,6 @@
 
     if (toggle.dataset.bound === "1") return;
     toggle.dataset.bound = "1";
-
-    const closeMenu = () => {
-      links.classList.remove("is-open");
-      toggle.setAttribute("aria-expanded", "false");
-    };
 
     toggle.addEventListener("click", () => {
       const isOpen = links.classList.toggle("is-open");
@@ -270,15 +259,22 @@
     document.addEventListener("click", (e) => {
       if (!links.classList.contains("is-open")) return;
       const inside = e.target.closest(".nav") || e.target.closest("#nav-links");
-      if (!inside) closeMenu();
+      if (!inside) {
+        links.classList.remove("is-open");
+        toggle.setAttribute("aria-expanded", "false");
+      }
     });
+
+    const closeMenu = () => {
+      links.classList.remove("is-open");
+      toggle.setAttribute("aria-expanded", "false");
+    };
 
     window.addEventListener("resize", () => {
       if (window.innerWidth > 720) closeMenu();
     });
   }
 
-  /* ---------- To-top ---------- */
   function initToTopButton() {
     const btn = document.getElementById("to-top");
     if (!btn) return;
@@ -290,7 +286,11 @@
   }
 
   /* =========================
-     SCENE IMAGE REVEAL (same behavior)
+     SCENE IMAGE REVEAL (FIXED)
+     - Uses scroll/resize + getBoundingClientRect()
+     - Works even when images are collapsed (max-height: 0)
+     - Reveal when the image’s TOP enters a “band” around viewport middle
+     - Hide only when FULLY out of viewport
   ========================= */
   function initSceneImageRevealForMount(mountEl) {
     if (!document.querySelector("[data-book-reader]")) return () => { };
@@ -313,7 +313,7 @@
       const cs = getComputedStyle(el);
       const mt = parseFloat(cs.marginTop) || 0;
       const mb = parseFloat(cs.marginBottom) || 0;
-      return r.height + mt + mb;
+      return r.height + mt + mb; // include margins because they also shift text
     };
 
     const update = () => {
@@ -324,12 +324,20 @@
 
       const mid = vh / 2;
       const band = Math.min(180, Math.max(90, Math.round(vh * 0.14)));
-      const collapseBuffer = Math.round(vh * 0.35);
+
+      // ✅ NEW: collapse buffer (how far OUTSIDE the screen before we collapse)
+      // Tune this:
+      // - bigger = collapses later (more forgiving)
+      // - smaller = collapses sooner
+      const collapseBuffer = Math.round(vh * 0.35); // ~35% of screen height
 
       for (const img of imgs) {
         const r = img.getBoundingClientRect();
+
         const inMidBand = r.top >= mid - band && r.top <= mid + band;
 
+        // ✅ UPDATED: "fully out" now means out + buffer
+        // (so it does NOT collapse right at the edge)
         const fullyAbove = r.bottom <= -collapseBuffer;
         const fullyBelow = r.top >= vh + collapseBuffer;
 
@@ -342,24 +350,33 @@
           continue;
         }
 
-        // COLLAPSE
+        // COLLAPSE (only when far out of viewport)
         if ((fullyAbove || fullyBelow) && img.dataset.revealedOnce === "1") {
+          // If collapsing ABOVE the viewport, prevent reading-jump:
+          // - measure removed height (including margins)
+          // - collapse instantly (offscreen)
+          // - scrollBy(-delta) to keep the same text in place
           if (fullyAbove) {
             const before = outerSize(img);
 
-            img.classList.add("no-anim");
+            img.classList.add("no-anim"); // disable transitions
             img.classList.remove("is-revealed");
             img.dataset.revealedOnce = "0";
 
-            void img.offsetHeight; // force layout
+            // force layout so the new collapsed size is applied immediately
+            void img.offsetHeight;
 
             const after = outerSize(img);
             const delta = before - after;
 
-            if (delta > 0) window.scrollBy(0, -delta);
+            if (delta > 0) {
+              window.scrollBy(0, -delta);
+            }
 
+            // restore transitions for next time it reveals
             requestAnimationFrame(() => img.classList.remove("no-anim"));
           } else {
+            // If collapsing below viewport, no need to compensate scroll
             img.classList.remove("is-revealed");
             img.dataset.revealedOnce = "0";
           }
@@ -376,7 +393,8 @@
     window.addEventListener("scroll", requestUpdate, { passive: true });
     window.addEventListener("resize", requestUpdate);
 
-    requestUpdate(); // run once immediately
+    // Run once right away
+    requestUpdate();
 
     return () => {
       window.removeEventListener("scroll", requestUpdate);
@@ -384,7 +402,6 @@
     };
   }
 
-  /* ---------- Book Reader ---------- */
   function initBookReader() {
     const page = document.querySelector("[data-book-reader]");
     if (!page) return;
@@ -413,6 +430,7 @@
       const nums = getAllChips()
         .map((a) => Number(a.dataset.chapter))
         .filter((n) => Number.isFinite(n) && n > 0);
+
       return nums.length ? Math.max(...nums) : null;
     };
 
@@ -503,10 +521,10 @@
       smoothTop();
     }
 
-    // Make the book title behave like “close chapter”
     const titleLink = page.querySelector(".book-header a");
     if (titleLink) {
       titleLink.href = window.location.pathname + window.location.search;
+
       titleLink.addEventListener("click", (e) => {
         e.preventDefault();
         history.replaceState(null, "", window.location.pathname + window.location.search);
@@ -515,12 +533,12 @@
       });
     }
 
-    const parseChapterFromHash = () => {
+    function parseChapterFromHash() {
       const m = location.hash.match(/ch-(\d+)/i);
       return m && m[1] ? Number(m[1]) : null;
-    };
+    }
 
-    const handleNavClick = (e) => {
+    function handleNavClick(e) {
       const chip = e.target.closest(".chapter-chip[data-chapter]");
       if (!chip) return;
 
@@ -529,7 +547,7 @@
       if (!Number.isFinite(ch) || ch <= 0) return;
 
       renderChapter(ch);
-    };
+    }
 
     topNav?.addEventListener("click", handleNavClick);
     bottomNav?.addEventListener("click", handleNavClick);
@@ -556,16 +574,22 @@
       const dir = String(img.dataset.coverDir || "").trim();
       const count = Number(img.dataset.coverCount || "0");
       const ext = String(img.dataset.coverExt || "png").trim();
+
       if (!dir || !Number.isFinite(count) || count < 1) return;
 
       const n = 1 + Math.floor(Math.random() * count);
+
       const chosen = new URL(`${dir}${n}.${ext}`, SITE_BASE).href;
       const fallback = new URL(`${dir}1.${ext}`, SITE_BASE).href;
 
       img.style.opacity = "0";
-      const reveal = () => (img.style.opacity = "1");
+
+      const reveal = () => {
+        img.style.opacity = "1";
+      };
 
       img.addEventListener("load", reveal, { once: true });
+
       img.addEventListener(
         "error",
         () => {
@@ -583,9 +607,7 @@
     });
   }
 
-  /* ---------- Boot ---------- */
   document.addEventListener("DOMContentLoaded", async () => {
-    // Run covers early (no dependency on partials)
     initRandomBookCovers();
 
     await loadPartial("site-header", "partials/header.html", {
@@ -610,7 +632,6 @@
 ========================= */
 (() => {
   document.addEventListener("contextmenu", (e) => e.preventDefault());
-
   document.addEventListener("dragstart", (e) => {
     const el = e.target;
     if (el && el.tagName === "IMG") e.preventDefault();
