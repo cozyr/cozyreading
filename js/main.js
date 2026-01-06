@@ -216,8 +216,10 @@
   const prefersReducedMotion = () =>
     window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  const smoothTop = () => {
-    window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? "auto" : "smooth" });
+  const scrollTop = (opts = {}) => {
+    const instant = !!opts.instant;
+    const behavior = instant || prefersReducedMotion() ? "auto" : "smooth";
+    window.scrollTo({ top: 0, behavior });
   };
 
   const setCurrentYear = (root) => {
@@ -286,7 +288,7 @@
     if (btn.dataset.bound === "1") return;
     btn.dataset.bound = "1";
 
-    btn.addEventListener("click", smoothTop);
+    btn.addEventListener("click", () => scrollTop());
   }
 
   /* =========================
@@ -482,7 +484,7 @@
       const wantedHash = `#ch-${ch}`;
       if (location.hash !== wantedHash) history.replaceState(null, "", wantedHash);
 
-      smoothTop();
+      scrollTop({ instant: true });
     }
 
     // Make the book title behave like “close chapter”
@@ -493,7 +495,7 @@
         e.preventDefault();
         history.replaceState(null, "", window.location.pathname + window.location.search);
         clearChapter();
-        smoothTop();
+        scrollTop({ instant: true });
       });
     }
 
