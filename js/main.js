@@ -293,28 +293,23 @@
      SCENE IMAGE REVEAL (same behavior)
   ========================= */
   function initSceneImageRevealForMount(mountEl) {
+    // Only apply on book pages (defensive)
     if (!document.querySelector("[data-book-reader]")) return () => { };
 
+    // Enable the CSS behavior
     document.documentElement.classList.add("js-scene-reveal");
 
     const imgs = Array.from(mountEl.querySelectorAll("img.scene-img"));
     if (!imgs.length) return () => { };
 
+    // Reset state for this render (so re-opening a chapter re-hides until revealed again)
     imgs.forEach((img) => {
       img.classList.remove("is-revealed");
-      img.dataset.revealedOnce = "0";
       img.classList.remove("no-anim");
+      img.dataset.revealedOnce = "0";
     });
 
     let ticking = false;
-
-    const outerSize = (el) => {
-      const r = el.getBoundingClientRect();
-      const cs = getComputedStyle(el);
-      const mt = parseFloat(cs.marginTop) || 0;
-      const mb = parseFloat(cs.marginBottom) || 0;
-      return r.height + mt + mb;
-    };
 
     const update = () => {
       ticking = false;
@@ -324,46 +319,28 @@
 
       const mid = vh / 2;
       const band = Math.min(180, Math.max(90, Math.round(vh * 0.14)));
-      const collapseBuffer = Math.round(vh * 0.35);
+
+      let revealedCount = 0;
 
       for (const img of imgs) {
+        if (img.dataset.revealedOnce === "1") {
+          revealedCount++;
+          continue; // already opened forever for this chapter render
+        }
+
         const r = img.getBoundingClientRect();
         const inMidBand = r.top >= mid - band && r.top <= mid + band;
 
-        const fullyAbove = r.bottom <= -collapseBuffer;
-        const fullyBelow = r.top >= vh + collapseBuffer;
-
-        // REVEAL
-        if (!img.classList.contains("is-revealed")) {
-          if (inMidBand) {
-            img.classList.add("is-revealed");
-            img.dataset.revealedOnce = "1";
-          }
-          continue;
+        if (inMidBand) {
+          img.classList.add("is-revealed");
+          img.dataset.revealedOnce = "1";
+          revealedCount++;
         }
+      }
 
-        // COLLAPSE
-        if ((fullyAbove || fullyBelow) && img.dataset.revealedOnce === "1") {
-          if (fullyAbove) {
-            const before = outerSize(img);
-
-            img.classList.add("no-anim");
-            img.classList.remove("is-revealed");
-            img.dataset.revealedOnce = "0";
-
-            void img.offsetHeight; // force layout
-
-            const after = outerSize(img);
-            const delta = before - after;
-
-            if (delta > 0) window.scrollBy(0, -delta);
-
-            requestAnimationFrame(() => img.classList.remove("no-anim"));
-          } else {
-            img.classList.remove("is-revealed");
-            img.dataset.revealedOnce = "0";
-          }
-        }
+      // Optional: once all images are revealed, remove listeners (small perf win)
+      if (revealedCount === imgs.length) {
+        cleanup();
       }
     };
 
@@ -373,14 +350,19 @@
       requestAnimationFrame(update);
     };
 
+    const cleanup = () => {
+      window.removeEventListener("scroll", requestUpdate);
+      window.removeEventListener("resize", requestUpdate);
+    };
+
     window.addEventListener("scroll", requestUpdate, { passive: true });
     window.addEventListener("resize", requestUpdate);
 
-    requestUpdate(); // run once immediately
+    // Run once right away
+    requestUpdate();
 
     return () => {
-      window.removeEventListener("scroll", requestUpdate);
-      window.removeEventListener("resize", requestUpdate);
+      cleanup();
     };
   }
 
