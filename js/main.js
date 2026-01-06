@@ -376,6 +376,7 @@
     const mount = document.getElementById("chapter-mount");
     const reader = document.getElementById("reader");
     const hint = document.getElementById("chapter-hint");
+    const synopsis = document.getElementById("book-synopsis");
     if (!mount || !reader || !hint) return;
 
     let cleanupSceneReveal = () => { };
@@ -441,6 +442,7 @@
       reader.hidden = true;
       if (bottomNav) bottomNav.hidden = true;
       hint.hidden = false;
+      if (synopsis) synopsis.hidden = false;
       setToTopVisible(false);
     }
 
@@ -479,6 +481,7 @@
       reader.hidden = false;
       if (bottomNav) bottomNav.hidden = false;
       hint.hidden = true;
+      if (synopsis) synopsis.hidden = true;
       setToTopVisible(true);
 
       const wantedHash = `#ch-${ch}`;

@@ -524,6 +524,21 @@ body.is-home .page {
     opacity: 0.82;
 }
 
+/* Center title + synopsis in the page header (Percy page) */
+.page-header {
+    text-align: center;
+}
+
+.page-header h1 {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.page-header .series-author {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 /* =========================
    Footer
 ========================= */
@@ -579,6 +594,63 @@ body.is-home .page {
         box-shadow 140ms ease;
 }
 
+/* =========================================================
+   Grid layout (Library + Series pages)
+   - Desktop: 3 per row
+   - Mobile: your existing 2 per row rules still apply
+========================================================= */
+.book-list--grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.book-list--grid .book-item {
+    display: block;
+    padding: 6px;
+    background: transparent;
+    border: 1px solid rgba(233, 242, 255, 0.10);
+    box-shadow: none;
+    border-radius: var(--radius2);
+}
+
+.book-list--grid a.book-item:hover {
+    transform: translateY(-2px);
+    border-color: rgba(30, 227, 207, 0.30);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
+    background: transparent;
+}
+
+.book-list--grid .book-cover {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    border-radius: var(--radius2);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.55);
+}
+
+.book-list--grid .book-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.book-list--grid .book-title {
+    margin: 10px 0 2px;
+    text-align: center;
+    line-height: 1.25;
+    font-size: 15px;
+    /* matches your mobile look */
+}
+
+.book-list--grid .book-summary {
+    display: none;
+}
+
+.book-list--grid .book-meta {
+    display: inline-block;
+    margin: 10px auto 0;
+    box-shadow: 0 0 0 6px rgba(30, 227, 207, 0.05);
+}
+
 a.book-item:hover {
     transform: translateY(-2px);
     border-color: rgba(30, 227, 207, 0.32);
@@ -623,7 +695,7 @@ a.book-item:hover {
 }
 
 .book-meta {
-    margin: 0;
+    margin: 0 auto 10px;
     display: inline-block;
     width: fit-content;
     padding: 6px 10px;
@@ -729,11 +801,25 @@ a.book-item:hover {
     padding: 0 8px;
 
     text-align: center;
-    color: var(--muted);
+    color: var(--sea);
     font-size: 14px;
     line-height: 1.6;
 
     animation: chapterHintPulse 0.8s ease-in-out infinite;
+}
+
+/* Book page synopsis under the chapter hint */
+.page-book .book-synopsis {
+    width: 100%;
+    max-width: var(--book-content-width);
+    margin: 12px auto 18px;
+    /* little margin-top + comfortable bottom */
+    padding: 0 8px;
+
+    text-align: center;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.7;
 }
 
 @keyframes chapterHintPulse {
@@ -1240,6 +1326,11 @@ html.js-scene-reveal .page-book .scene-img.no-anim {
     margin-top: 0;
 }
 
+/* Series pages: add space above the grid */
+.page.page-library.page-series .book-list {
+    margin-top: 22px;
+}
+
 .library-group {
     position: relative;
     margin-top: 18px;
@@ -1409,7 +1500,7 @@ html.js-scene-reveal .page-book .scene-img.no-anim {
     }
 
     .book-title {
-        margin: 10px 0 2px;
+        margin: 0;
         text-align: center;
         font-size: 15px;
         line-height: 1.25;
