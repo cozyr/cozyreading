@@ -381,8 +381,7 @@
 
     let cleanupSceneReveal = () => { };
 
-    const bookNum = page.dataset.bookReader;
-    if (bookNum) reader.setAttribute("aria-label", `Book ${bookNum} reader`);
+    reader.setAttribute("aria-label", "Book reader");
 
     const topNav = page.querySelector('[data-chapters="top"]');
     const bottomNav = page.querySelector('[data-chapters="bottom"]');

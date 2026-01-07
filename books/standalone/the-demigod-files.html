@@ -1,0 +1,808 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Demigod Files | Cozy Reading Library</title>
+
+    <script>
+        document.documentElement.classList.add("is-loading");
+    </script>
+
+    <link rel="stylesheet" href="../../../css/style.css" />
+    <script defer src="../../../js/main.js"></script>
+</head>
+
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div id="site-header"></div>
+
+    <!-- NOTE: data-book-reader can be any number; it's used for aria-label + your own organization -->
+    <main id="main" class="page page-book" data-book-reader>
+        <header class="page-header book-header">
+            <h1>
+                <a href="./the-demigod-files.html" aria-label="Back to The Demigod Files"
+                    title="Back to The Demigod Files">
+                    The Demigod Files
+                </a>
+            </h1>
+        </header>
+
+        <!-- TOP chapter selector -->
+        <nav class="chapter-strip" aria-label="Chapters" data-chapters="top">
+            <ol class="chapter-strip-list">
+                <li><a class="chapter-chip" href="#ch-1" data-chapter="1">1</a></li>
+                <li><a class="chapter-chip" href="#ch-2" data-chapter="2">2</a></li>
+                <li><a class="chapter-chip" href="#ch-3" data-chapter="3">3</a></li>
+                <li><a class="chapter-chip" href="#ch-4" data-chapter="4">4</a></li>
+                <li><a class="chapter-chip" href="#ch-5" data-chapter="5">5</a></li>
+                <li><a class="chapter-chip" href="#ch-6" data-chapter="6">6</a></li>
+                <li><a class="chapter-chip" href="#ch-7" data-chapter="7">7</a></li>
+                <li><a class="chapter-chip" href="#ch-8" data-chapter="8">8</a></li>
+                <li><a class="chapter-chip" href="#ch-9" data-chapter="9">9</a></li>
+            </ol>
+        </nav>
+
+        <!-- Hint text (shown only when no chapter is open) -->
+        <p id="chapter-hint" class="chapter-hint">CLICK A CHAPTER NUMBER TO START READING</p>
+
+        <!-- Synopsis (shown only when no chapter is open) -->
+        <p id="book-synopsis" class="book-synopsis">
+            <i>The Demigod Files</i> is a short companion volume to <i>Percy Jackson and the Olympians</i>, positioned
+            narratively between <i>The Battle of the Labyrinth</i> and <i>The Last Olympian</i>. It collects three
+            Percy-narrated side adventures plus “camp” extras.
+        </p>
+
+        <!-- Reader is hidden until a chapter is chosen -->
+        <article class="reader" id="reader" aria-label="Book 6 reader" hidden>
+            <div id="chapter-mount" aria-live="polite"></div>
+        </article>
+
+        <!-- Bottom selector (hidden until a chapter is opened) -->
+        <nav class="chapter-strip chapter-strip--bottom" aria-label="Chapters (bottom)" data-chapters="bottom" hidden>
+            <ol class="chapter-strip-list">
+                <li><a class="chapter-chip" href="#ch-1" data-chapter="1">1</a></li>
+                <li><a class="chapter-chip" href="#ch-2" data-chapter="2">2</a></li>
+                <li><a class="chapter-chip" href="#ch-3" data-chapter="3">3</a></li>
+                <li><a class="chapter-chip" href="#ch-4" data-chapter="4">4</a></li>
+                <li><a class="chapter-chip" href="#ch-5" data-chapter="5">5</a></li>
+                <li><a class="chapter-chip" href="#ch-6" data-chapter="6">6</a></li>
+                <li><a class="chapter-chip" href="#ch-7" data-chapter="7">7</a></li>
+                <li><a class="chapter-chip" href="#ch-8" data-chapter="8">8</a></li>
+                <li><a class="chapter-chip" href="#ch-9" data-chapter="9">9</a></li>
+            </ol>
+        </nav>
+
+        <!-- CHAPTER TEMPLATES -->
+        <template data-chapter="1" id="tpl-ch-1">
+            <section id="ch-1" class="chapter" data-chapter="1">
+                <header class="chapter-head">
+                    <div class="chapter-num">1</div>
+                    <h2 class="chapter-title">LETTER FROM CAMP HALF-BLOOD</h2>
+                </header>
+                <div class="chapter-text">
+                    <hr class="scene-break" />
+                    <p class="no-indent">Dear Young Demigod, </p>
+                    <br class="calibre1" />
+                    <p>If you are reading this book, I can only apologize. Your life is about to get much more
+                        dangerous.
+                    </p>
+                    <p>By now, you have probably realized that you are not a mortal. This book is meant to serve as an
+                        inside look at the world of demigods that no regular human child would be allowed to see. As
+                        senior scribe of Camp Half-Blood, I hope the top secret information within will give you some
+                        tips and insights that may keep you alive in your training.
+                    </p>
+                    <p><i>The Demigod Files</i> contains three of Percy Jackson’s most dangerous adventures never before
+                        committed to paper. You will learn how he encountered the immortal and terrible sons of Ares.
+                        You will find out the truth about the bronze dragon, long considered to be only a Camp
+                        Half-Blood legend. And you will discover how Hades gained a new secret weapon, and how Percy was
+                        forced to play an unwitting part in its creation. These stories are not meant to terrify you,
+                        but it is important that you realize just how perilous the life of a hero can be.
+                    </p>
+                    <p>Chiron has also given me clearance to share confidential interviews with some of our most
+                        important campers, including Percy Jackson, Annabeth Chase, and Grover Underwood. Please keep in
+                        mind that these interviews were given in strictest confidence. Share this information with any
+                        non-demigod, and you may find Clarisse coming after you with her electric spear. Believe me, you
+                        do not want that.
+                    </p>
+                    <p>Finally, I have enclosed artwork to assist with your orientation. You will find portraits of
+                        several characters at Camp Half-Blood so you will recognize them when you meet them in person.
+                        Annabeth Chase has allowed us to replicate her own camp trunk so you can get an idea of what to
+                        pack for your first summer. There is also a map of camp, which I hope will keep you from getting
+                        lost and eaten by monsters.
+                    </p>
+                    <p>
+                        Study these pages well, for your own adventures have only just begun. May the gods be with you,
+                        young demigod!
+                    </p>
+                    <br class="calibre1" />
+                    <p>Yours truly, </p>
+                    <p>Rick Riordan</p>
+                    <p>Senior Scribe, Camp Half-Blood </p>
+                    <hr class="scene-break" />
+                </div>
+            </section>
+        </template>
+
+        <template data-chapter="2" id="tpl-ch-2">
+            <section id="ch-2" class="chapter" data-chapter="2">
+                <header class="chapter-head">
+                    <div class="chapter-num">2</div>
+                    <h2 class="chapter-title">THE STOLEN CHARIOT</h2>
+                </header>
+                <div class="chapter-text">
+                    <hr class="scene-break" />
+                    <p class="no-indent"><b>I</b> was in fifth-period science class when I heard these noises outside.
+                    </p>
+                    <p><i>SCRAWK! OW! SCREECH! </i>“HIYA!” </p>
+                    <p>Like somebody was getting attacked by possessed poultry, and believe me, that’s a situation I’ve
+                        been in before.
+                        Nobody else seemed to notice the commotion. We were doing a lab, so everybody was talking, and
+                        it wasn’t hard
+                        for me to go look out the window while I pretended to wash out my beaker. </p>
+                    <p>Sure enough, there was a girl in the alley with her sword drawn. She was tall and muscular like a
+                        basketball
+                        player, with stringy brown hair and jeans and combat boots and a denim jacket. She was hacking
+                        at a flock of
+                        black birds the size of ravens. Feathers stuck out of her clothes in several places. A cut was
+                        bleeding over her
+                        left eye. As I watched, one of the birds shot a feather like an arrow, and it lodged in her
+                        shoulder. She cursed
+                        and sliced at the bird, but it flew away. </p>
+                    <p>Unfortunately, I recognized the girl. It was Clarisse, my old enemy from demigod camp. Clarisse
+                        usually lived at
+                        Camp Half-Blood year-round. I had no idea what she was doing on the Upper East Side in the
+                        middle of a school
+                        day, but she was obviously in trouble. She wouldn’t last much longer. </p>
+                    <p>I did the only the thing I could. </p>
+                    <p>“Mrs. White,” I said, “can I go to the restroom? I feel like I’m going to puke.” </p>
+                    <p>You know how teachers tell you the magic word is <i>please</i>? That’s not true. The magic word
+                        is <i>puke</i>.
+                        It will get you out of class faster than anything else. </p>
+                    <p>“Go!” Mrs. White said. </p>
+                    <p>I ran out the door, stripping off my safety goggles and gloves and lab apron. I got out my best
+                        weapon—a
+                        ballpoint pen called Riptide. </p>
+                    <p>Nobody stopped me in the halls. I exited by the gym. I got to the alley just in time to see
+                        Clarisse smack a
+                        devil bird with the flat of her sword like she was hitting a home run. The bird squawked and
+                        spiraled away,
+                        slamming against the brick wall and sliding into a trash can. That still left a dozen more
+                        swarming around her.
+                    </p>
+                    <p>“Clarisse!” I yelled. </p>
+                    <p>She glared at me in disbelief. “Percy? What are you doing—” </p>
+                    <p>She was cut short by a volley of feather arrows that zipped over her head and impaled themselves
+                        in the wall.
+                    </p>
+                    <p>“This is my school,” I told her. </p>
+                    <p>“Just my luck,” Clarisse grumbled, but she was too busy fighting to complain much. </p>
+                    <p>I uncapped my pen, which grew into a three-foot-long bronze sword, and joined the battle,
+                        slashing at the birds
+                        and deflecting their feathers off my blade. Together, Clarisse and I sliced and hacked until all
+                        the birds were
+                        reduced to piles of feathers on the ground. </p>
+                    <p>We were both breathing hard. I had a few scratches, but nothing major. I pulled a feather arrow
+                        out of my arm. It
+                        hadn’t gone in very deep. As long as it wasn’t poison, I’d be okay. I took a baggie of ambrosia
+                        out of my
+                        jacket, where I always kept it for emergencies, broke a piece in half, and offered some to
+                        Clarisse. </p>
+                    <p>“I don’t need your help,” she muttered, but she took the ambrosia. </p>
+                    <p>We swallowed a few bites—not too much, since the food of the gods can burn you to ashes if you
+                        overindulge. I
+                        guess that’s why you don’t see many fat gods. Anyway, in a few seconds our cuts and bruises had
+                        disappeared.
+                    </p>
+                    <p>Clarisse sheathed her sword and brushed off her denim jacket. “Well . . . see you.” </p>
+                    <p>“Hold up!” I said. “You can’t just run off.” </p>
+                    <p>“Sure I can.” </p>
+                    <p>“What’s going on? What are you doing away from camp? Why were those birds after you?” </p>
+                    <p>Clarisse pushed me, or tried to. I was too accustomed to her tricks. I just sidestepped and let
+                        her stumble past
+                        me. </p>
+                    <p>“Come on,” I said. “You just about got killed at my school. That makes it my business.” </p>
+                    <p>“It does not!” </p>
+                    <p>“Let me help.” </p>
+                    <p>She took a shaky breath. I got the feeling she really wanted to punch me out, but at the same
+                        time there was a
+                        desperate look in her eyes, like she was in serious trouble. </p>
+                    <p>“It’s my brothers,” she said. “They’re playing a prank on me.” </p>
+                    <p>“Oh,” I said, not really surprised. Clarisse had lots of siblings at Camp Half-Blood. All of them
+                        picked on each
+                        other. I guess that was to be expected since they were sons and daughters of the war god, Ares.
+                        “Which brothers?
+                        Sherman? Mark?” </p>
+                    <p>“No,” she said, sounding more afraid than I’d ever heard her. “My
+                        immortal brothers.
+                        Phobos and Deimos.” </p>
+                    <hr class="scene-break" />
+                    <p>We sat on a bench at the park while Clarisse told me the story. I wasn’t too worried about
+                        getting back to
+                        school. Mrs. White would just assume the nurse had sent me home, and sixth period was shop
+                        class. Mr. Bell never
+                        took attendance. </p>
+                    <p>“So let me get this straight,” I said. “You took your dad’s car for a joyride, and now it’s
+                        missing.” </p>
+                    <p>“It’s not a car,” Clarisse growled. “It’s a war chariot! And he <i>told </i>me to take it out.
+                        It’s like . . . a
+                        test. I’m supposed to bring it back at sunset. But—” </p>
+                    <p>“Your brothers carjacked you.” </p>
+                    <p>“Chariot-jacked me,” she corrected. “They’re his regular charioteers, see. And they don’t like
+                        anybody else
+                        getting to drive. So they stole the chariot from me and chased me off with those stupid
+                        arrow-throwing birds.”
+                    </p>
+                    <p>“Your dad’s pets?” </p>
+                    <p>She nodded miserably. “They guard his temple. Anyway, if I don’t find the chariot . . .” </p>
+                    <p>She looked like she was about to lose it. I didn’t blame her. I’d seen her dad, Ares, get mad
+                        before, and it was
+                        not a pretty sight. If Clarisse failed him, he would come down hard on her. <i>Real </i>hard.
+                    </p>
+                    <p>“I’ll help you,” I said. </p>
+                    <p>She scowled. “Why would you? I’m not your friend.” </p>
+                    <p>I couldn’t argue with that. Clarisse had been mean to me a million times, but still, I didn’t
+                        like the idea of
+                        her or anybody else getting beat up by Ares. I was trying to figure out how to explain that to
+                        her when a guy’s
+                        voice said, “Aw, look. I think she’s been crying!” </p>
+                    <p>A teenage dude was leaning against a telephone pole. He was dressed in ratty jeans, a black
+                        T-shirt, and a
+                        leather jacket, with a bandanna over his hair. A knife was stuck in his belt. He had eyes the
+                        color of flames.
+                    </p>
+                    <p>“Phobos.” Clarisse balled her fists. “Where’s the chariot, you jerk?” </p>
+                    <p>“<i>You </i>lost it,” he teased. “Don’t ask me.” </p>
+                    <p>“You little—” </p>
+                    <p>Clarisse drew her sword and charged, but Phobos disappeared as she swung, and her blade bit into
+                        the telephone
+                        pole. </p>
+                    <p>Phobos appeared on the bench next to me. He was laughing, but he stopped when I stuck Riptide’s
+                        point against his
+                        throat. </p>
+                    <p>“You’d better return that chariot,” I told him, “before I get mad.” </p>
+                    <p>He sneered and tried to look tough, or as tough as you can with a sword under your chin. “Who’s
+                        your little
+                        boyfriend, Clarisse? You have to get help fighting your battles now?” </p>
+                    <p>“He’s not my boyfriend!” Clarisse tugged her sword, pulling it out of the telephone pole. “He’s
+                        not even my
+                        friend. That’s Percy Jackson.” </p>
+                    <p>Something changed in Phobos’s expression. He looked surprised, maybe even nervous. “The son of
+                        Poseidon? The one
+                        who made Dad angry? Oh, this is too good, Clarisse. You’re hanging out with a sworn enemy?” </p>
+                    <p>“I’m not hanging out with him!” </p>
+                    <p>Phobos’s eyes glowed bright red. </p>
+                    <p>Clarisse screamed. She swatted the air as if she were being attacked by invisible bugs. “Please,
+                        no!” </p>
+                    <p>“What are you doing to her?” I demanded. </p>
+                    <p>Clarisse backed up into the street, swinging her sword wildly. </p>
+                    <p>“Stop it!” I told Phobos. I dug my sword a little deeper against his throat, but he simply
+                        vanished, reappearing
+                        back at the telephone pole. </p>
+                    <p>“Don’t get so excited, Jackson,” Phobos said. “I’m just showing her what she fears.” </p>
+                    <p>The glow faded from his eyes. </p>
+                    <p>Clarisse collapsed, breathing hard. “You creep,” she gasped. “I’ll . . . I’ll get you.” </p>
+                    <p>Phobos turned toward me. “How about you, Percy Jackson? What do <i>you </i>fear? I’ll find out,
+                        you know. I
+                        always do.” </p>
+                    <p>“Give the chariot back.” I tried to keep my voice even. “I took on your dad once. You don’t scare
+                        me.” </p>
+                    <p>Phobos laughed. “Nothing to fear but fear itself. Isn’t that what they say? Well, let me tell you
+                        a little
+                        secret, half-blood. I <i>am </i>fear. If you want to find the chariot, come and get it. It’s
+                        across the water.
+                        You’ll find it where the little wild animals live—just the sort of place you belong.” </p>
+                    <p>He snapped his fingers and disappeared in a curtain of yellow vapor. </p>
+                    <p>Now, I’ve got to tell you, I’ve met a lot of godlings and monsters I didn’t like, but Phobos took
+                        the prize. I
+                        don’t like bullies. I’d never been in the “A” crowd at school, so I’d spent most of my life
+                        standing up to punks
+                        who tried to frighten me and my friends. The way Phobos laughed at me and made Clarisse collapse
+                        just by looking
+                        at her . . . I wanted to teach this guy a lesson. </p>
+                    <p>I helped Clarisse up. Her face was still beaded with sweat. </p>
+                    <p>“<i>Now </i>are you ready for help?” I asked. </p>
+                    <hr class="scene-break" />
+                    <p>We took the subway, keeping a lookout for more attacks, but no one bothered us. As we rode,
+                        Clarisse told me
+                        about Phobos and Deimos. </p>
+                    <p>“They’re minor gods,” she said. “Phobos is fear. Deimos is terror.” </p>
+                    <p>“What’s the difference?” </p>
+                    <p>She frowned. “Deimos is bigger and uglier, I guess. He’s good at freaking out entire crowds.
+                        Phobos is more,
+                        like, personal. He can get inside your head.” </p>
+                    <p>“That’s where they get the word <i>phobia</i>?” </p>
+                    <p>“Yeah,” she grumbled. “He’s so proud of that. All those phobias named after him. The jerk.” </p>
+                    <p>“So why don’t they want you driving the chariot?” </p>
+                    <p>“It’s usually a ritual just for Ares’s sons when they turn fifteen. I’m the first daughter to get
+                        a shot in a
+                        long time.” </p>
+                    <p>“Good for you.” </p>
+                    <p>“Tell that to Phobos and Deimos. They hate me. I’ve <i>got </i>to get the chariot back to the
+                        temple.” </p>
+                    <p>“Where <i>is </i>the temple?” </p>
+                    <p>“Pier 86. The <i>Intrepid</i>.” </p>
+                    <p>“Oh.” It made sense, now that I thought about it. I’d never actually been on board the old
+                        aircraft carrier, but
+                        I knew they used it as some kind of military museum. It probably had a bunch of guns and bombs
+                        and other
+                        dangerous toys. Just the kind of place a war god would want to hang out. </p>
+                    <p>“We’ve got maybe four hours before sunset,” I guessed. “That should be enough time if we can find
+                        the chariot.”
+                    </p>
+                    <p>“But what did Phobos mean, ‘over the water’? We’re on an island, for Zeus’s sake. That could be
+                        any direction!”
+                    </p>
+                    <p>“He said something about wild animals,” I remembered. “Little wild animals.” </p>
+                    <p>“A zoo?” </p>
+                    <p>I nodded. A zoo over the water could be the one in Brooklyn, or maybe . . . someplace harder to
+                        get to, with
+                        <i>little </i>wild animals. Someplace nobody would ever think to look for a war chariot.
+                    </p>
+                    <p>“Staten Island,” I said. “They’ve got a small zoo.” </p>
+                    <p>“Maybe,” Clarisse said. “That sounds like the kind of out-of-the-way place Phobos and Deimos
+                        would stash
+                        something. But if we’re wrong—” </p>
+                    <p>“We don’t have time to be wrong.” </p>
+                    <p>We hopped off the train at Times Square and caught the Number 1
+                        downtown, toward the
+                        ferry terminal. </p>
+                    <hr class="scene-break" />
+                    <p>We boarded the Staten Island Ferry at three thirty, along with a bunch of tourists, who crowded
+                        the railings of
+                        the top deck, snapping pictures as we passed the Statue of Liberty. </p>
+                    <p>“He modeled that after his mom,” I said, looking up at the statue. </p>
+                    <p>Clarisse frowned at me. “Who?” </p>
+                    <p>“Bartholdi,” I said. “The dude who made the Statue of Liberty. He was a son of Athena, and he
+                        designed it to look
+                        like his mom. That’s what Annabeth told me, anyway.” </p>
+                    <p>Clarisse rolled her eyes. Annabeth was my best friend and a huge nut when it came to architecture
+                        and monuments.
+                        I guess her egghead facts rubbed off on me sometimes. </p>
+                    <p>“Useless,” Clarisse said. “If it doesn’t help you fight, it’s useless information.” </p>
+                    <p>I could’ve argued with her, but just then the ferry lurched like it had hit a rock. Tourists
+                        spilled forward,
+                        tumbling into each other. Clarisse and I ran to the front of the boat. The water below us
+                        started to boil. Then
+                        the head of a sea serpent erupted from the bay. </p>
+                    <p>The monster was at least as big as the boat. It was gray and green with a head like a crocodile
+                        and razor-sharp
+                        teeth. It smelled . . . well, like something that had just come up from the bottom of New York
+                        Harbor. Riding on
+                        its neck was a bulky guy in black Greek armor. His face was covered with ugly scars, and he held
+                        a javelin in
+                        his hand. </p>
+                    <p>“Deimos!” Clarisse yelled. </p>
+                    <p>“Hello, sister!” His smile was almost as horrible as the serpent’s. “Care to play?” </p>
+                    <p>The monster roared. Tourists screamed and scattered. I don’t know exactly what they saw. The Mist
+                        usually
+                        prevents mortals from seeing monsters in their true form, but whatever they saw, they were
+                        terrified. </p>
+                    <p>“Leave them alone!” I yelled. </p>
+                    <p>“Or <i>what</i>, son of the sea god?” Deimos sneered. “My brother tells me you’re a wimp!
+                        Besides, I love terror.
+                        I live on terror!” </p>
+                    <p>He spurred the sea serpent into head-butting the ferry, which sloshed backward. Alarms blared.
+                        Passengers fell
+                        over each other trying to get away. Deimos laughed with delight. </p>
+                    <p>“That’s it,” I grumbled. “Clarisse, grab on.” </p>
+                    <p>“What?” </p>
+                    <p>“Grab on to my neck. We’re going for a ride.” </p>
+                    <p>She didn’t protest. She grabbed on to me, and I said, “One, two, three—JUMP!” </p>
+                    <p>We leaped off the top deck and straight into the bay, but we were only under water for a moment.
+                        I felt the power
+                        of the ocean surging through me. I willed the water to swirl around me, building force until we
+                        burst out of the
+                        bay on top of a thirty-foot-high waterspout. I steered us straight toward the monster. </p>
+                    <p>“You think you can tackle Deimos?” I yelled to Clarisse. </p>
+                    <p>“I’m on it!” she said. “Just get me within ten feet.” </p>
+                    <p>We barreled toward the serpent. Just as it bared its fangs, I swerved the waterspout to one side,
+                        and Clarisse
+                        jumped. She crashed into Deimos, and both of them toppled into the sea. </p>
+                    <p>The sea serpent came after me. I quickly turned the waterspout to face him, then summoned all my
+                        power and willed
+                        the water to even greater heights. </p>
+                    <p><i>WHOOOOM! </i></p>
+                    <p>Ten thousand gallons of salt water crashed into the monster. I leaped over its head, uncapped
+                        Riptide, and
+                        slashed with all my might at the creature’s neck. The monster roared. Green blood spouted from
+                        the wound, and
+                        the serpent sank beneath the waves. </p>
+                    <p>I dove under water and watched as it retreated back to the open sea. That’s one good thing about
+                        sea serpents:
+                        they’re big babies when it comes to getting hurt. </p>
+                    <p>Clarisse surfaced near me, spluttering and coughing. I swam over and grabbed her. </p>
+                    <p>“Did you get Deimos?” I asked. </p>
+                    <p>Clarisse shook her head. “The coward disappeared as we were wrestling. But I’m sure we’ll see him
+                        again. Phobos,
+                        too.” </p>
+                    <p>Tourists were still running around the ferry in a panic, but it didn’t look like anybody was
+                        hurt. The boat
+                        didn’t seem damaged. I decided we shouldn’t stick around. I held on to Clarisse’s arm and willed
+                        the waves to
+                        carry us toward Staten Island. </p>
+                    <p>In the west, the sun was going down over the Jersey shore. We were
+                        running out of
+                        time. </p>
+                    <hr class="scene-break" />
+                    <p>I’d never spent much time on Staten Island, and I found it was a lot bigger than I thought and
+                        not much fun to
+                        walk. The streets curved around confusingly, and everything seemed to be uphill. I was dry (I
+                        never got wet in
+                        the ocean unless I wanted to) but Clarisse’s clothes were still sopping wet, so she left mucky
+                        footprints all
+                        over the sidewalk, and the bus driver wouldn’t let us on the bus. </p>
+                    <p>“We’ll never make it in time,” she sighed. </p>
+                    <p>“Stop thinking that way.” I tried to sound upbeat, but I was starting to have doubts too. I
+                        wished we had
+                        reinforcements. Two demigods against two minor gods was not an even match, and when we met
+                        Phobos and Deimos
+                        together, I wasn’t sure what we were going to do. I kept remembering what Phobos had said:
+                        <i>How about you,
+                            Percy Jackson? What do you fear? I’ll find out, you know</i>.
+                    </p>
+                    <p>After dragging ourselves halfway down the island, past a lot of suburban houses and a couple of
+                        churches and a
+                        McDonald’s, we finally saw a sign that said ZOO. We turned a corner and followed this curvy
+                        street with some
+                        woods on one side until we came to the entrance. </p>
+                    <p>The lady at the ticket booth looked at us suspiciously, but thank the gods I had enough cash to
+                        get us inside.
+                    </p>
+                    <p>We walked around the reptile house, and Clarisse stopped in her tracks. </p>
+                    <p>“There it is.” </p>
+                    <p>It was sitting at a crossroads between the petting zoo and the sea otter pond: a large golden and
+                        red chariot
+                        tethered to four black horses. The chariot was decorated with amazing detail. It would’ve been
+                        beautiful if all
+                        the pictures hadn’t shown people dying painful deaths. The horses were breathing fire out of
+                        their nostrils.
+                    </p>
+                    <p>Families with strollers walked right past the chariot like it didn’t exist. I guess the Mist
+                        must’ve been really
+                        strong around it, because the chariot’s only camouflage was a handwritten note taped to one of
+                        the horses’
+                        chests that said OFFICIAL ZOO VEHICLE. </p>
+                    <p>“Where are Phobos and Deimos?” Clarisse muttered, drawing her sword. </p>
+                    <p>I couldn’t see them anywhere, but this had to be a trap. </p>
+                    <p>I concentrated on the horses. Usually I could talk to horses, since my dad had created them. I
+                        said, <i>Hey. Nice
+                            fire-breathing horses. Come here! </i></p>
+                    <p>One of horses whinnied disdainfully. I could understand his thoughts, all right. He called me
+                        some names I can’t
+                        repeat. </p>
+                    <p>“I’ll try to get the reins,” Clarisse said. “The horses know me. Cover me.” </p>
+                    <p>“Right.” I wasn’t sure how I was supposed to cover her with a sword, but I kept my eyes peeled as
+                        Clarisse
+                        approached the chariot. She walked around the horses, almost tiptoeing. </p>
+                    <p>She froze as a lady with a three-year-old girl passed by. The girl said, “Pony on fire!” </p>
+                    <p>“Don’t be silly, Jessie,” the mother said in a dazed voice. </p>
+                    <p>“That’s an official zoo vehicle.” </p>
+                    <p>The little girl tried to protest, but the mother grabbed her hand and they kept walking. Clarisse
+                        got closer to
+                        the chariot. Her hand was six inches from the rail when the horses reared up, whinnying and
+                        breathing flames.
+                        Phobos and Deimos appeared in the chariot, both of them now dressed in pitch-black battle armor.
+                        Phobos grinned,
+                        his red eyes glowing. Deimos’s scarred face looked even more horrible up close. </p>
+                    <p>“The hunt is on!” Phobos yelled. Clarisse stumbled back as he lashed the horses and charged the
+                        chariot straight
+                        toward me. </p>
+                    <p>Now, I’d like to tell you that I did something heroic, like stand up against a raging team of
+                        fire-breathing
+                        horses with only my sword. The truth is, I ran. I jumped over a trash bin and an exhibit fence,
+                        but there was no
+                        way I could outrun the chariot. It crashed through the fence right behind me, plowing down
+                        everything in its
+                        path. </p>
+                    <p>“Percy, look out!” Clarisse yelled, like I needed somebody to tell me that. </p>
+                    <p>I jumped and landed on a rock island in the middle of the otter exhibit. I willed a column of
+                        water out of the
+                        pond and doused the horses, temporarily extinguishing their flames and sending them into
+                        confusion. The otters
+                        weren’t happy with me. They chattered and barked, and I figured I’d better get off their island
+                        quick, before I
+                        had crazed sea mammals after me too. </p>
+                    <p>I ran as Phobos cursed and tried to get his horses under control. Clarisse took the opportunity
+                        to jump on
+                        Deimos’s back just as he was lifting his javelin. Both of them went tumbling out of the chariot
+                        as it lurched
+                        forward. </p>
+                    <p>I could hear Deimos and Clarisse starting to fight, sword on sword, but I didn’t have time to
+                        worry about it
+                        because Phobos was riding after me again. I sprinted toward the aquarium with the chariot right
+                        behind me. </p>
+                    <p>“Hey, Percy!” Phobos taunted. “I’ve got something for you!” </p>
+                    <p>I glanced back and saw the chariot melting, the horses turning to steel and folding into each
+                        other like clay
+                        figures being crumpled. The chariot refashioned itself into a black metal box with caterpillar
+                        treads, a turret,
+                        and a long gun barrel. A tank. I recognized it from this research report I’d had to do for
+                        history class. Phobos
+                        was grinning at me from the top of a World War II panzer. </p>
+                    <p>“Say cheese!” he said. </p>
+                    <p>I rolled to one side as the gun fired. </p>
+                    <p><i>KA-BOOOOM! </i>A souvenir kiosk exploded, sending fuzzy animals and plastic cups and
+                        disposable cameras in
+                        every direction. As Phobos re-aimed his gun, I got to my feet and dived into the aquarium. </p>
+                    <p>I wanted to surround myself with water. That always increased my power. Besides, it was possible
+                        Phobos couldn’t
+                        fit the chariot inside the doorway. Of course, if he blasted through it, that wouldn’t help. . .
+                        . </p>
+                    <p>I ran through the rooms washed in weird blue light from the fish tank exhibits. Cuttlefish, clown
+                        fish, and eels
+                        all stared at me as I raced past. I could hear their little minds whispering, <i>Son of the sea
+                            god! Son of the
+                            sea god! </i>It’s great when you’re a celebrity to squids. </p>
+                    <p>I stopped at the back of the aquarium and listened. I heard nothing. And then . . . <i>Vroom</i>,
+                        <i>Vroom</i>. A
+                        different kind of engine.
+                    </p>
+                    <p>I watched in disbelief as Phobos came riding through the aquarium on a Harley-Davidson. I’d seen
+                        this motorcycle
+                        before: its black flame-decorated engine, its shotgun holsters, its leather seat that looked
+                        like human skin.
+                        This was the same motorcycle Ares had ridden when I’d first met him, but it had never occurred
+                        to me that it was
+                        just another form of his war chariot. </p>
+                    <p>“Hello, loser,” Phobos said, pulling a huge sword out of its sheath. “Time to be scared.” </p>
+                    <p>I raised my own sword, determined to face him, but then Phobos’s eyes glowed brighter, and I made
+                        the mistake of
+                        looking into them. </p>
+                    <p>Suddenly I was in a different place. I was at Camp Half-Blood, my favorite place in the world,
+                        and it was in
+                        flames. The woods were on fire. The cabins were smoking. The dining pavilion’s Greek columns had
+                        crumbled, and
+                        the Big House was a smoldering ruin. My friends were on their knees pleading with me. Annabeth,
+                        Grover, all the
+                        other campers. </p>
+                    <p><i>Save us, Percy! </i>they wailed. <i>Make the choice! </i></p>
+                    <p>I stood paralyzed. This was the moment I had always dreaded: the prophecy that was supposed to
+                        come about when I
+                        was sixteen. I would make a choice that would save or destroy Mount Olympus. </p>
+                    <p>Now the moment was here, and I had no idea what to do. The camp was burning. My friends looked at
+                        me, begging for
+                        help. My heart pounded. I couldn’t move. What if I did the wrong thing? </p>
+                    <p>Then I heard the voices of the aquarium fish: <i>Son of the sea god! Wake! </i></p>
+                    <p>Suddenly I felt the power of the ocean all around me again, hundreds of gallons of salt water,
+                        thousands of fish
+                        trying to get my attention. I wasn’t at camp. This was an illusion. Phobos was showing me my
+                        deepest fear. </p>
+                    <p>I blinked and saw Phobos’s blade coming down toward my head. I raised Riptide and blocked the
+                        blow just before it
+                        cut me in two. </p>
+                    <p>I counterattacked and stabbed Phobos in the arm. </p>
+                    <p>Golden ichor, the blood of the gods, soaked through his shirt. </p>
+                    <p>Phobos growled and slashed at me. I parried easily. Without his power of fear, Phobos was
+                        nothing. He wasn’t even
+                        a decent fighter. I pressed him back, swiped at his face, and gave him a cut across the cheek.
+                        The angrier he
+                        was, the clumsier he got. I couldn’t kill him. He was immortal. But you wouldn’t have known that
+                        from his
+                        expression. The fear god looked afraid. </p>
+                    <p>Finally I kicked him backward against the water fountain. His sword skittered into the ladies
+                        room. I grabbed the
+                        straps of his armor and pulled him up to face me. </p>
+                    <p>“You’re going to disappear now,” I told him. “You’re going to stay out of Clarisse’s way. And if
+                        I see you again,
+                        I’m going to give you a bigger scar in a much more painful place!” </p>
+                    <p>He gulped. “There will be a next time, Jackson!” </p>
+                    <p>And he dissolved into yellow vapor. </p>
+                    <p>I turned toward the fish exhibits. “Thanks, guys.” </p>
+                    <p>Then I looked at Ares’s motorcycle. I’d never ridden an all-powerful
+                        Harley-Davidson
+                        war chariot before, but how hard could it be? I hopped on, started the ignition, and rode out of
+                        the aquarium to
+                        help Clarisse. </p>
+                    <hr class="scene-break" />
+                    <p>I had no trouble finding her. I just followed the path of destruction. Fences were knocked down.
+                        Animals were
+                        running free. Badgers and lemurs were checking out the popcorn machine. A fat-looking leopard
+                        was lounging on a
+                        park bench with a bunch of pigeon feathers around him. </p>
+                    <p>I parked the motorcycle next to the petting zoo, and there were Deimos and Clarisse in the goat
+                        area. Clarisse
+                        was on her knees. I ran forward but stopped suddenly when I saw how Deimos had changed form. He
+                        was Ares now—
+                        the tall god of war, dressed in black leather and sunglasses, his whole body smoking with anger
+                        as he raised his
+                        fist over Clarisse. </p>
+                    <p>“You failed me again!” the war god bellowed. “I told you what would happen!” </p>
+                    <p>He tried to strike her, but Clarisse scrambled away, shrieking, “No! Please!” </p>
+                    <p>“Foolish girl!” </p>
+                    <p>“Clarisse!” I yelled. “It’s an illusion. Stand up to him!” </p>
+                    <p>Deimos’s form flickered. “I am Ares!” he insisted. “And you are a worthless girl! I knew you
+                        would fail me. Now
+                        you will suffer my wrath.” </p>
+                    <p>I wanted to charge in and fight Deimos, but somehow I knew it wouldn’t help. Clarisse had to do
+                        it. This was her
+                        worst fear. She had to overcome it for herself. </p>
+                    <p>“Clarisse!” I said. She glanced over, and I tried to hold her eyes. “Stand up to him!” I said.
+                        “He’s all talk.
+                        Get up!” </p>
+                    <p>“I . . . I can’t.” </p>
+                    <p>“Yes, you can. You’re a warrior. Get up!” </p>
+                    <p>She hesitated. Then she began to stand. </p>
+                    <p>“What are you doing?” Ares bellowed. “Grovel for mercy, girl!” </p>
+                    <p>Clarisse took a shaky breath. Very quietly, she said, “No.” </p>
+                    <p>“WHAT?” </p>
+                    <p>She raised her sword. “I’m tired of being scared of you.” </p>
+                    <p>Deimos struck, but Clarisse deflected the blow. She staggered but didn’t fall. </p>
+                    <p>“You’re not Ares,” Clarisse said. “You’re not even a good fighter.” </p>
+                    <p>Deimos growled in frustration. When he struck again, Clarisse was ready. She disarmed him and
+                        stabbed him in the
+                        shoulder—not deep, but enough to hurt even a godling. </p>
+                    <p>He yowled in pain and began to glow. </p>
+                    <p>“Look away!” I told Clarisse. </p>
+                    <p>We averted our eyes as Deimos exploded into golden light—his true godly form—and disappeared.
+                    </p>
+                    <p>We were alone except for the petting zoo goats, which were tugging at our clothes, looking for
+                        snacks. </p>
+                    <p>The motorcycle had turned back into a horse-drawn chariot. </p>
+                    <p>Clarisse looked at me cautiously. She wiped the straw and sweat off her face. “You didn’t see
+                        that. You didn’t
+                        see any of that.” </p>
+                    <p>I grinned. “You did good.” </p>
+                    <p>She glanced at the sky, which was turning red behind the trees. </p>
+                    <p>“Get in the chariot,” Clarisse said. “We’ve still got a long ride to
+                        make.” </p>
+                    <hr class="scene-break" />
+                    <p>A few minutes later we reached the Staten Island Ferry and remembered something obvious: we were
+                        on an island.
+                        The ferry didn’t take cars. Or chariots. Or motorcycles. </p>
+                    <p>“Great,” Clarisse mumbled. “What do we do now? Ride this thing across the Verrazano Bridge?” </p>
+                    <p>We both knew there wasn’t time. There were bridges to Brooklyn and New Jersey, but either way it
+                        would take hours
+                        to drive the chariot back to Manhattan, even if we could fool people into thinking it was a
+                        regular car. </p>
+                    <p>Then I got an idea. “We’ll take the direct route.” </p>
+                    <p>Clarisse frowned. “What do you mean?” </p>
+                    <p>I closed my eyes and began to concentrate. “Drive straight ahead. Go!” </p>
+                    <p>Clarisse was so desperate she didn’t hesitate. She yelled, “Hiya!” and
+                        lashed the
+                        horses. They charged straight toward the water. I imagined the sea turning solid, the waves
+                        becoming a firm
+                        surface all the way to Manhattan. The war chariot hit the surf, the horses’ fiery breath smoking
+                        all around us,
+                        and we rode the tops of the waves straight across New York Harbor. </p>
+                    <hr class="scene-break" />
+                    <p>We arrived at Pier 86 just as the sunset was fading to purple. The USS <i>Intrepid</i>, temple of
+                        Ares, was a
+                        huge wall of gray metal in front of us, the flight deck dotted with fighter aircraft and
+                        helicopters. We parked
+                        the chariot on the ramp, and I jumped out. For once I was glad to be on dry land. Concentrating
+                        on keeping the
+                        chariot above the waves had been one of the hardest things I’d ever done. I was exhausted. </p>
+                    <p>“I’d better get out of here before Ares arrives,” I said. </p>
+                    <p>Clarisse nodded. “He’d probably kill you on sight.” </p>
+                    <p>“Congratulations,” I said. “I guess you passed your driving test.” </p>
+                    <p>She wrapped the reins around her hand. “About what you saw, Percy. What I was afraid of, I mean—”
+                    </p>
+                    <p>“I won’t tell anybody.” </p>
+                    <p>She looked at me uncomfortably. “Did Phobos scare you?” </p>
+                    <p>“Yeah. I saw the camp in flames. I saw my friends all pleading for my help, and I didn’t know
+                        what to do. For a
+                        second, I couldn’t move. I was paralyzed. I know how you felt.” </p>
+                    <p>She lowered her eyes. “I, uh . . . I guess I should say. . .” </p>
+                    <p>The words seemed to stick in her throat. I wasn’t sure Clarisse had ever said thank you in her
+                        life. “Don’t
+                        mention it,” I told her. I started to walk away, but she called out, “Percy?” “Yeah?” “When you,
+                        uh, had that
+                        vision about your friends . . .” “You were one of them,” I promised. “Just don’t tell anybody,
+                        okay? Or I’d have
+                        to kill you.” A faint smile flickered across her face. “See you later.” “See you.” I headed off
+                        toward the
+                        subway. It had been a long day, and I was ready to get home. </p>
+                    <hr class="scene-break" />
+                </div>
+            </section>
+        </template>
+
+        <template data-chapter="3" id="tpl-ch-3">
+            <section id="ch-3" class="chapter" data-chapter="3">
+                <header class="chapter-head">
+                    <div class="chapter-num">3</div>
+                    <h2 class="chapter-title">TITLE</h2>
+                </header>
+                <div class="chapter-text">
+                    <hr class="scene-break" />
+                    <!-- CHAPTER TEXT -->
+                    <hr class="scene-break" />
+                </div>
+            </section>
+        </template>
+
+        <template data-chapter="4" id="tpl-ch-4">
+            <section id="ch-4" class="chapter" data-chapter="4">
+                <header class="chapter-head">
+                    <div class="chapter-num">4</div>
+                    <h2 class="chapter-title">TITLE</h2>
+                </header>
+                <div class="chapter-text">
+                    <hr class="scene-break" />
+                    <!-- CHAPTER TEXT -->
+                    <hr class="scene-break" />
+                </div>
+            </section>
+        </template>
+
+        <template data-chapter="5" id="tpl-ch-5">
+            <section id="ch-5" class="chapter" data-chapter="5">
+                <header class="chapter-head">
+                    <div class="chapter-num">5</div>
+                    <h2 class="chapter-title">TITLE</h2>
+                </header>
+                <div class="chapter-text">
+                    <hr class="scene-break" />
+                    <!-- CHAPTER TEXT -->
+                    <hr class="scene-break" />
+                </div>
+            </section>
+        </template>
+
+        <template data-chapter="6" id="tpl-ch-6">
+            <section id="ch-6" class="chapter" data-chapter="6">
+                <header class="chapter-head">
+                    <div class="chapter-num">6</div>
+                    <h2 class="chapter-title">TITLE</h2>
+                </header>
+                <div class="chapter-text">
+                    <hr class="scene-break" />
+                    <!-- CHAPTER TEXT -->
+                    <hr class="scene-break" />
+                </div>
+            </section>
+        </template>
+
+        <template data-chapter="7" id="tpl-ch-7">
+            <section id="ch-7" class="chapter" data-chapter="7">
+                <header class="chapter-head">
+                    <div class="chapter-num">7</div>
+                    <h2 class="chapter-title">TITLE</h2>
+                </header>
+                <div class="chapter-text">
+                    <hr class="scene-break" />
+                    <!-- CHAPTER TEXT -->
+                    <hr class="scene-break" />
+                </div>
+            </section>
+        </template>
+
+        <template data-chapter="8" id="tpl-ch-8">
+            <section id="ch-8" class="chapter" data-chapter="8">
+                <header class="chapter-head">
+                    <div class="chapter-num">8</div>
+                    <h2 class="chapter-title">TITLE</h2>
+                </header>
+                <div class="chapter-text">
+                    <hr class="scene-break" />
+                    <!-- CHAPTER TEXT -->
+                    <hr class="scene-break" />
+                </div>
+            </section>
+        </template>
+
+        <template data-chapter="9" id="tpl-ch-9">
+            <section id="ch-9" class="chapter" data-chapter="9">
+                <header class="chapter-head">
+                    <div class="chapter-num">9</div>
+                    <h2 class="chapter-title">TITLE</h2>
+                </header>
+                <div class="chapter-text">
+                    <hr class="scene-break" />
+                    <!-- CHAPTER TEXT -->
+                    <hr class="scene-break" />
+                </div>
+            </section>
+        </template>
+
+        <div id="site-waves"></div>
+    </main>
+
+    <div id="site-to-top"></div>
+    <div id="site-footer"></div>
+</body>
+
+</html>
