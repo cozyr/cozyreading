@@ -979,6 +979,17 @@ a.book-item:hover {
     text-indent: 0;
 }
 
+.the-end-wrap {
+    text-align: center;
+}
+
+.the-end {
+    text-indent: 0 !important;
+    /* ✅ cancel chapter paragraph indentation */
+    text-align: center;
+    /* (safe) */
+}
+
 /* No indent for the first paragraph AFTER each scene break */
 .chapter-text hr.scene-break+p,
 .chapter-text hr.scene-break+img+p,
@@ -1002,12 +1013,34 @@ a.book-item:hover {
 
 .the-end {
     margin: 0;
-    font-family: "MontserratLocal", var(--font-ui);
+
+    /* same font as book titles */
+    font-family: "CormorantUnicaseBold", "MontserratLocal", var(--font-ui);
     font-weight: 750;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.015em;
+
+    /* same gold fade */
+    background: linear-gradient(180deg,
+            #fff6c7 0%,
+            #f6d77a 22%,
+            #d7a83a 50%,
+            #f7e08f 78%,
+            #fff3bd 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+
+    /* same glow/shadow vibe */
+    text-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.55),
+        0 0 18px rgba(246, 215, 122, 0.12);
+
     text-transform: none;
-    color: rgba(233, 242, 255, 0.86);
-    font-size: clamp(40px, 3.6vw, 40px);
+
+    /* size (tweak if you want it bigger/smaller) */
+    font-size: clamp(44px, 4vw, 64px);
+    line-height: 1.05;
 }
 
 /* Scene divider line */

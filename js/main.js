@@ -415,7 +415,7 @@
 
       const wrap = document.createElement("div");
       wrap.className = "the-end-wrap";
-      wrap.innerHTML = `<p class="the-end" aria-label="The End">The End</p>`;
+      wrap.innerHTML = `<p class="the-end" aria-label="The End">THE END</p>`;
       target.appendChild(wrap);
     }
 
