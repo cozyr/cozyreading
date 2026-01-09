@@ -5,7 +5,6 @@ https://cozyr.github.io/cozyreading/
 
 Line Break:
 <hr class="scene-break" />
-<p class="center">* * *</p>
 
 Line Break (for centered texts/articles):
 <br class="calibre1" />
@@ -18,3 +17,14 @@ Scene Image:
 
 Scene Image (Standalone):
 <img class="scene-img" src="../../assets/images/standalone/the-demigod-files/book-scenes/3-1.png" alt="Scene image" />
+
+
+TO CHECK: =====================================
+
+<p class="center">* * *</p>
+
+Fixed dots format:
+…. change to ... (no space after)
+“… change to “... (no space after)
+…” change to ...” (no space after)
+… change to ... (a space after)
